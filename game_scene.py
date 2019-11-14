@@ -2,6 +2,7 @@ import pygame
 import time
 
 from scene_base import SceneBase
+from end_scene import EndScene
 import constants
 
 sz = 10
@@ -16,7 +17,7 @@ class Snake:
     def __init__(self):
         self.cells = [(50, 50)]
         self.direction = 3
-        self.LEN = 5
+        self.LEN = 10
         self.birth()
 
     def birth(self):
@@ -50,7 +51,7 @@ class GameScene(SceneBase):
                             break
         
     def Update(self):
-        time.sleep(0.02)
+        time.sleep(0.1)
         # update the cells
         head = self.snake.cells[0]
         new_cell = head
@@ -62,6 +63,8 @@ class GameScene(SceneBase):
             new_cell = ((head[0]-sz)%constants.SCREEN_L, head[1])
         elif self.snake.direction == G_R:
             new_cell = ((head[0]+sz)%constants.SCREEN_L, head[1])
+        if new_cell in self.snake.cells:
+            self.SwitchToScene(EndScene())
         self.snake.cells.insert(0, new_cell)
         self.snake.cells.pop()
         pass
