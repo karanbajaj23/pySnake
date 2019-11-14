@@ -4,6 +4,7 @@ from scene_base import SceneBase
 from game_scene import GameScene
 
 class TitleScene(SceneBase):
+
     def __init__(self):
         SceneBase.__init__(self)
     
@@ -17,5 +18,7 @@ class TitleScene(SceneBase):
         pass
     
     def Render(self, screen):
-        # For the sake of brevity, the title scene is a blank red screen
-        screen.fill((255, 0, 0))
+        screen.fill((255, 255, 255))
+        font = pygame.font.SysFont("comicsansms", 45)
+        text = font.render("Snake (AI?)", True, (0, 0, 0))
+        screen.blit(text, (100, 75))

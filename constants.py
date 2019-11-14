@@ -1,0 +1,2 @@
+SCREEN_L = 400
+SCREEN_B = 400

@@ -1,5 +1,8 @@
 import pygame
+
 from title_scene import TitleScene
+from game_scene import GameScene
+import constants
 
 def run_game(width, height, fps, starting_scene):
     pygame.init()
@@ -39,4 +42,8 @@ def run_game(width, height, fps, starting_scene):
         pygame.display.flip()
         clock.tick(fps)
 
-run_game(400, 300, 60, TitleScene())
+def main():
+    run_game(constants.SCREEN_L, constants.SCREEN_B, 60, GameScene()) #TitleScene())
+
+if __name__ == "__main__":
+    main()
