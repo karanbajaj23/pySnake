@@ -4,7 +4,7 @@ import random
 
 from scene_base import SceneBase
 from end_scene import EndScene
-import constants
+import constants as c
 
 sz = 10
 S_COLOR = (255,0,0)
@@ -20,7 +20,7 @@ def get_rand(limit):
 
 class Snake:
     def __init__(self):
-        self.cells = [(get_rand(constants.SCREEN_L), get_rand(constants.SCREEN_B))]
+        self.cells = [(get_rand(c.SCREEN_L), get_rand(c.SCREEN_B))]
         self.direction = G_R
         self.LEN = 5
         self.birth()
@@ -32,7 +32,7 @@ class Snake:
 
 class Prey:
     def __init__(self):
-        self.cell = (get_rand(constants.SCREEN_L), get_rand(constants.SCREEN_B))
+        self.cell = (get_rand(c.SCREEN_L), get_rand(c.SCREEN_B))
 
 class GameScene(SceneBase):
 
@@ -46,6 +46,7 @@ class GameScene(SceneBase):
             for e in events:
                 if e.type == pygame.KEYDOWN:
                     if self.snake.direction in (G_U, G_D) :
+                        print e
                         if e.key == pygame.K_LEFT:
                             self.snake.direction = G_L
                             break
@@ -53,6 +54,7 @@ class GameScene(SceneBase):
                             self.snake.direction = G_R
                             break
                     elif self.snake.direction in (G_L, G_R):
+                        print e
                         if e.key == pygame.K_UP:
                             self.snake.direction = G_U
                             break
@@ -61,18 +63,18 @@ class GameScene(SceneBase):
                             break
         
     def Update(self):
-        time.sleep(0.1)
+        time.sleep(0.01)
         # update the cells
         head = self.snake.cells[0]
         new_cell = head
         if self.snake.direction == G_U:
-            new_cell = (head[0], (head[1]-sz)%constants.SCREEN_B)
+            new_cell = (head[0], (head[1]-sz)%c.SCREEN_B)
         elif self.snake.direction == G_D:
-            new_cell = (head[0], (head[1]+sz)%constants.SCREEN_B)
+            new_cell = (head[0], (head[1]+sz)%c.SCREEN_B)
         elif self.snake.direction == G_L:
-            new_cell = ((head[0]-sz)%constants.SCREEN_L, head[1])
+            new_cell = ((head[0]-sz)%c.SCREEN_L, head[1])
         elif self.snake.direction == G_R:
-            new_cell = ((head[0]+sz)%constants.SCREEN_L, head[1])
+            new_cell = ((head[0]+sz)%c.SCREEN_L, head[1])
 
         if new_cell in self.snake.cells:
             self.SwitchToScene(EndScene())
